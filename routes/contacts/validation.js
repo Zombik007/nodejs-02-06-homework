@@ -1,5 +1,6 @@
 const Joi = require('joi')
-const { ValidInfoContact } = require('../../config/constant')
+
+const { ValidInfoContact, HttpCode } = require('../../config/constants')
 
 const schemaContact = Joi.object({
   name: Joi.string().alphanum().min(3).max(20).required(),
@@ -11,12 +12,12 @@ const schemaContact = Joi.object({
   isFavorite: Joi.boolean().optional(),
 })
 
-const schemaContactId = Joi.object({
-  contactId: Joi.string().required(),
-})
-
 const schemaStatusContact = Joi.object({
   isFavorite: Joi.boolean().required(),
+})
+
+const schemaContactId = Joi.object({
+  contactId: Joi.string().required(),
 })
 
 const validate = async (schema, obj, res, next) => {
@@ -25,9 +26,9 @@ const validate = async (schema, obj, res, next) => {
     next()
   } catch (err) {
     console.log(err)
-    res.status(400).json({
+    res.status(HttpCode.BAD_REQUEST).json({
       status: 'error',
-      code: 400,
+      code: HttpCode.BAD_REQUEST,
       message: `missing required ${err.message.replace(/"/g, '')} field`,
     })
   }
@@ -37,10 +38,10 @@ module.exports.validateContact = async (req, res, next) => {
   return await validate(schemaContact, req.body, res, next)
 }
 
-module.exports.validateContactId = async (req, res, next) => {
-  return await validate(schemaContactId, req.params, res, next)
-}
-
 module.exports.validateStatusContact = async (req, res, next) => {
   return await validate(schemaStatusContact, req.body, res, next)
+}
+
+module.exports.validateContactId = async (req, res, next) => {
+  return await validate(schemaContactId, req.params, res, next)
 }
