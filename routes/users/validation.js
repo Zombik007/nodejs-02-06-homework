@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const { HttpCode } = require('../../config/constants')
 
 const schemaUser = Joi.object({
   email: Joi.string().email().required(),
@@ -10,9 +11,9 @@ const validateUser = async (schema, obj, res, next) => {
     await schema.validateAsync(obj)
     next()
   } catch (error) {
-    res.status(400).json({
+    res.status(HttpCode.BAD_REQUEST).json({
       status: 'error',
-      code: 400,
+      code: HttpCode.BAD_REQUEST,
       message: 'missing required name field',
     })
   }

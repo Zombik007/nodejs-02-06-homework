@@ -1,5 +1,4 @@
 const Joi = require('joi')
-
 const { ValidInfoContact, HttpCode } = require('../../config/constants')
 
 const schemaContact = Joi.object({
