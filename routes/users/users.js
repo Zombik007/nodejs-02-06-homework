@@ -5,14 +5,17 @@ const {
   login,
   logout,
   current,
+  uploadAvatar,
 } = require('../../controllers/users')
 const guard = require('../../helpers/guard')
 const loginLimit = require('../../helpers/rate-limit-login')
 const { validateUser } = require('./validation')
+const upload = require('../../helpers/uploads')
 
 router.post('/registration', validateUser, registration)
 router.post('/login', loginLimit, validateUser, login)
 router.post('/logout', guard, logout)
-router.get('/current', guard, validateUser, current)
+router.get('/current', guard, current)
+router.patch('/avatar', guard, upload.single('avatarURL'), uploadAvatar)
 
 module.exports = router

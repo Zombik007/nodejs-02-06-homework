@@ -23,8 +23,18 @@ const HttpCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
+const TokenLifeTime = {
+  TOKEN_LIFE_TIME: 15 * 60 * 1000, // 15 minute
+}
+
+const LimitRequests = {
+  LIMIT_REQUESTS: 3, // limit each IP to 100 requests per windowMs
+}
+
 module.exports = {
   ValidInfoContact,
   UserSubscription,
   HttpCode,
+  TokenLifeTime,
+  LimitRequests,
 }
