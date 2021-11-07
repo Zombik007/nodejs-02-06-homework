@@ -31,6 +31,8 @@ app.use((req, res) => {
 })
 
 app.use((err, req, res, next) => {
+  console.log('🚀 ~ file: app.js ~ line 34 ~ app.use ~ res', res)
+  console.log('🚀 ~ file: app.js ~ line 34 ~ app.use ~ err', err)
   const statusCode = err.status || HttpCode.INTERNAL_SERVER_ERROR
   res.status(statusCode).json({
     status: statusCode === HttpCode.INTERNAL_SERVER_ERROR ? 'fail' : 'error',
